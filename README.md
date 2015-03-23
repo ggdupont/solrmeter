@@ -1,7 +1,7 @@
 SolrMeter
 =========
 
-Migrated from the original (Google Code repository)[http://code.google.com/p/solrmeter/] after (Google announcement to discontinue the service)[https://github.com/m-khl/solr-meter/blob/master/sources/solrmeter/src/main/resources/solrmeter.properties].
+Migrated from the original [Google Code repository](http://code.google.com/p/solrmeter/) after [Google announcement to discontinue the service](https://github.com/m-khl/solr-meter/blob/master/sources/solrmeter/src/main/resources/solrmeter.properties).
 
 ## Installation
 
