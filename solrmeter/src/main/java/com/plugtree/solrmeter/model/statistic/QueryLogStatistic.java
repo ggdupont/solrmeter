@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.response.FacetField;
+import org.apache.solr.client.solrj.response.GroupCommand;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.util.NamedList;
 
@@ -115,7 +116,16 @@ public class QueryLogStatistic implements QueryStatistic {
       
       facetQueryString = createFacetQuery(response.getFacetFields());
       qTime = response.getQTime();
-      results = response.getResults().getNumFound();
+      if (response.getGroupResponse() != null) {
+        results = new Long(0);
+        for (GroupCommand command : response.getGroupResponse().getValues()) {
+            if (command.getNGroups() != null) {
+                results += command.getNGroups();
+            }
+        }
+      } else {
+          results = response.getResults().getNumFound();
+      }
     }
     
     private String createFacetQuery(List<FacetField> facetFields) {

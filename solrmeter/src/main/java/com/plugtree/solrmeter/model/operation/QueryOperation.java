@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.GroupCommand;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import com.plugtree.solrmeter.model.QueryExecutor;
@@ -51,7 +52,13 @@ public class QueryOperation implements Operation {
       long init = System.nanoTime();
       QueryResponse response = this.executeQuery(query);
       long clientTime = (System.nanoTime() - init)/1000000;
-      logger.debug(response.getResults().getNumFound() + " results found in " + response.getQTime() + " ms");
+      if (response.getGroupResponse() != null) {
+          for (GroupCommand command : response.getGroupResponse().getValues()) {
+            logger.debug(command.getNGroups() + " groups found for " + command.getName() + " in " + response.getQTime() + " ms");
+          }
+      } else {
+        logger.debug(response.getResults().getNumFound() + " results found in " + response.getQTime() + " ms");
+      }
       if(response.getQTime() < 0) {
         throw new RuntimeException("The query returned less than 0 as q time: " + response.getResponseHeader().get("q") + response.getQTime());
       }
