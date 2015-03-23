@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lafourchette/solrmeter.svg)](https://travis-ci.org/lafourchette/solrmeter)
+
 SolrMeter
 =========
 
